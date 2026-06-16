@@ -1,23 +1,20 @@
 pipeline {
-agent any
+    agent any
 
-```
-stages {
+    stages {
 
-    stage('Checkout') {
-        steps {
-            checkout scm
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
         }
-    }
 
-    stage('Build') {
-        steps {
-            dir('Springboot-app') {
-                sh 'mvn clean package'
+        stage('Build') {
+            steps {
+                dir('Springboot-app') {
+                    sh 'mvn clean package'
+                }
             }
         }
     }
-}
-```
-
 }
