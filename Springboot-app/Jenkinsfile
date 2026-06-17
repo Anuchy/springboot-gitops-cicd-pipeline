@@ -1,38 +1,35 @@
 pipeline {
-agent any
+    agent any
 
-```
-stages {
+    stages {
 
-    stage('Checkout') {
-        steps {
-            checkout scm
-        }
-    }
-
-    stage('Build') {
-        steps {
-            dir('Springboot-app') {
-                sh 'mvn clean package'
+        stage('Checkout') {
+            steps {
+                checkout scm
             }
         }
-    }
 
-    stage('SonarQube Analysis') {
-        steps {
-            dir('Springboot-app') {
-                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
-                    sh '''
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=springboot-gitops-cicd-pipeline \
-                        -Dsonar.host.url=http://host.docker.internal:9000 \
-                        -Dsonar.token=$SONAR_TOKEN
-                    '''
+        stage('Build') {
+            steps {
+                dir('Springboot-app') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                dir('Springboot-app') {
+                    withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                        sh '''
+                            mvn sonar:sonar \
+                            -Dsonar.projectKey=springboot-gitops-cicd-pipeline \
+                            -Dsonar.host.url=http://host.docker.internal:9000 \
+                            -Dsonar.token=$SONAR_TOKEN
+                        '''
+                    }
                 }
             }
         }
     }
-}
-```
-
 }
