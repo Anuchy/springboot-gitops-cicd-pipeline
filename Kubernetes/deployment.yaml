@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+\apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spring-boot-app
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: anuchy/springboot-gitops:replaceImageTag
+        image: anuchy/springboot-gitops:16
         ports:
         - containerPort: 8080
